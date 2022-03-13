@@ -1,0 +1,33 @@
+@import "~@/styles/mixin";
+@import "~@/styles/var";
+
+.message{
+    .self-center();
+    display: flex;
+    align-items: center;
+    color: #fff;
+    border-radius: 5px;
+    z-index: 999;
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 10px 30px;
+    opacity: 0;
+    transition: 1s;
+    transform: translate(-50%, -50%) translateY(25px);
+    white-space: nowrap;
+    &-info{
+        background: @primary;
+    }
+    &-success{
+        background: @success;
+    }
+    &-warn{
+        background: @warn;
+    }
+    &-error{
+        background: @danger;
+    }
+}
+.icon{
+    font-size: 20px;
+    margin-right: 7px;
+}

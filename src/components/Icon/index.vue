@@ -39,4 +39,8 @@ export default {
 
 <style lang = "less" scoped>
 @import "//at.alicdn.com/t/font_2465804_cfmi7e9i8e5.css";
+.icon-container{
+    font-size: inherit;
+    color: inherit;
+}
 </style>
