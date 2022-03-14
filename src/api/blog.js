@@ -15,3 +15,24 @@ export async function getBlogs(page = 1, limit = 10, categoryid = -1){
         }
     });
 }
+
+//根据id获取博客详情
+export async function getBlogDetail(id){
+    return await request.get(`/api/blog/${id}`);
+}
+
+//提交评论
+export async function postComment(commentInfo){
+    return await request.post("/api/comment", commentInfo);
+}
+
+//根据id,分类获取评论列表
+export async function getComments(blogid, page = 1, limit){
+    return await request.get("/api/comment", {
+        params: {
+            blogid,
+            page,
+            limit,
+        }
+    })
+}

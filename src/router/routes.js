@@ -1,5 +1,6 @@
 import Home from "@/views/Home";
 import Blog from "@/views/Blog";
+import BlogDetail from "@/views/Blog/Detail";
 import About from "@/views/About";
 import Project from "@/views/Project";
 import Message from "@/views/Message";
@@ -19,6 +20,11 @@ export default [
         name: "CategoryBlog",
         path: "/blog/cate/:categoryId",
         component: Blog,
+    },
+    {
+        name: "BlogDetail",
+        path: "/blog/:id",
+        component: BlogDetail,
     },
     {
         name: "About",

@@ -1,32 +1,48 @@
 <template>
-  <div class="blog-list-container" v-loading = "isLoading" ref = "container">
+  <div class="blog-list-container" v-loading="isLoading" ref="container">
     <ul>
       <li v-for="item in data.rows" :key="item.id">
         <div class="thumb">
-          <a href="">
+          <RouterLink :to = "{
+            name: 'BlogDetail',
+            params: {
+              id: item.id
+            }
+          }">
             <img :src="item.thumb" alt="" />
-          </a>
+          </RouterLink>
         </div>
         <div class="main">
-          <a href="">
+          <RouterLink :to = "{
+            name: 'BlogDetail',
+            params: {
+              id: item.id
+            }
+          }">
             <h2>{{ item.title }}</h2>
-          </a>
+          </RouterLink>
           <div class="aside">
-            <span>日期:{{ item.createDate }}</span>
+            <span>日期:{{ formatDate(item.createDate) }}</span>
             <span>浏览:{{ item.scanNumber }}</span>
             <span>评论:{{ item.commentNumber }}</span>
-            <a href="">{{ item.category.name }}</a>
+            <RouterLink :to="{
+              name: 'CategoryBlog',
+              params: {
+                categoryId: item.category.id,
+              }
+            }">{{ item.category.name }}</RouterLink>
           </div>
           <div class="desc">{{ item.description }}</div>
         </div>
       </li>
     </ul>
-    <Pager 
-    v-if = "data.total"
-     :current = "routeInfo.page" 
-     :total = "data.total" 
-     :limit = "routeInfo.limit"
-     @pageChange = "handlePageChange"/>
+    <Pager
+      v-if="data.total"
+      :current="routeInfo.page"
+      :total="data.total"
+      :limit="routeInfo.limit"
+      @pageChange="handlePageChange"
+    />
   </div>
 </template>
 
@@ -34,11 +50,12 @@
 import fetchData from "@/mixins/fetchData";
 import { getBlogs } from "@/api/blog.js";
 import Pager from "@/components/Pager";
+import { formatDate } from "@/utils";
 
 export default {
   mixins: [fetchData({})],
   components: {
-      Pager,
+    Pager,
   },
   computed: {
     routeInfo() {
@@ -53,6 +70,7 @@ export default {
     },
   },
   methods: {
+    formatDate,
     async fetchData() {
       return await getBlogs(
         this.routeInfo.page,
@@ -60,38 +78,37 @@ export default {
         this.routeInfo.categoryId
       );
     },
-    handlePageChange(newPage){
-        const query = {
-            page: newPage,
-            limit: this.routeInfo.limit,
-        };
-        if(this.routeInfo.categoryId === -1){
-            //当前没有分类
-            this.$router.push({
-                name: "Blog",
-                query,
-            })
-        }else{
-            //有分类
-            this.$router.push({
-                name: "CategoryBlog",
-                params: {
-                    categoryId: this.routeInfo.categoryId,
-                },
-                query,
-            })
-        }
-
-    }
+    handlePageChange(newPage) {
+      const query = {
+        page: newPage,
+        limit: this.routeInfo.limit,
+      };
+      if (this.routeInfo.categoryId === -1) {
+        //当前没有分类
+        this.$router.push({
+          name: "Blog",
+          query,
+        });
+      } else {
+        //有分类
+        this.$router.push({
+          name: "CategoryBlog",
+          params: {
+            categoryId: this.routeInfo.categoryId,
+          },
+          query,
+        });
+      }
+    },
   },
   watch: {
-      async $route(){
-          this.isLoading = true;
-          this.$refs.container.scrollTop = 0;
-          this.data = await this.fetchData();
-          this.isLoading = false;
-      }
-  }
+    async $route() {
+      this.isLoading = true;
+      this.$refs.container.scrollTop = 0;
+      this.data = await this.fetchData();
+      this.isLoading = false;
+    },
+  },
 };
 </script>
 

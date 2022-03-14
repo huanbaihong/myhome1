@@ -4,6 +4,10 @@
           <span 
            :class="{active: item.isSelect}"
            @click = "handleClick(item)">{{ item.name }}</span>
+           <span 
+            class = "aside" 
+            :class="{active: item.isSelect}"
+            >{{ item.aside }}</span>
           <RightList :list = "item.children" @select = "handleClick"/>
       </li>
   </ul>
@@ -37,11 +41,18 @@ export default {
         li{
             min-height: 40px;
             line-height: 40px;
+            font-size: 14px;
             cursor: pointer;
             .active{
                 color: @warn;
                 font-weight: bold;
             }
+           
         }
     }
+     .aside{
+                font-size: 12px;
+                margin-left: 1em;
+                color: @gray;
+            }
 </style>
