@@ -4,6 +4,7 @@ import router from "./router";
 import {showMessage}  from "./utils";
 import "./mock";
 import vLoading from "./directives/loading.js";
+import "./eventBus";
 
 
 Vue.directive("loading", vLoading);

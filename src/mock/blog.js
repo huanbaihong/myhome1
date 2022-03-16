@@ -296,14 +296,15 @@ Mock.mock("/api/comment", "post", {
 
 //获取评论列表
 Mock.mock(/^\/api\/comment\/?(\?.+)?$/, "get", function(options) {
-  const query = qs.parse(options.url);
+  const searchParams = new URLSearchParams(options.url);
+    const limit = searchParams.get("limit");
 
   return Mock.mock({
     code: 0,
     msg: "",
     data: {
       "total|50-200": 0,
-      [`rows|${query.limit || 10}`]: [
+      [`rows|${limit || 10}`]: [
         {
           id: "@guid",
           nickname: "@cname",

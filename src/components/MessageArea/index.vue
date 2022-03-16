@@ -1,11 +1,12 @@
 <template>
   <div class="message-area-container">
-      <data-form></data-form>
+      <DataForm v-on="$listeners"/>
       <h3>
           {{ title }}
           <span>{{ subTitle }}</span>
       </h3>
-      <data-list></data-list>
+      <DataList :list="list"/>
+      <div class="loading" v-loading = "isListLoading"></div>
   </div>
 </template>
 
@@ -20,14 +21,25 @@ export default {
           default: "",
       },
       subTitle: {
-          tyle: String,
+          type: String,
           default: "",
-      }
+      },
+      list: {
+          type: Array,
+          default: () => [],
+      },
+      isListLoading: {
+          type: Boolean,
+          default: true,
+      },
   }
 
 }
 </script>
 
-<style>
-
+<style lang = "less" scoped>
+    .loading{
+        position: relative;
+        height: 100px;
+    }
 </style>

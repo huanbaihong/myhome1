@@ -1,20 +1,39 @@
 <template>
-  <div class="app container">
-      <MessageArea 
-      title = "评论列表"
-      subTitle = "(50)"/>
+  <div class="app-container">
+    <Layout>
+      <template #left>
+        <SiteAside />
+      </template>
+      <template #default>
+        <RouterView />
+      </template>
+    </Layout>
   </div>
 </template>
 
 <script>
-import MessageArea from "./components/MessageArea";
+import "./styles/global.less";
+import Layout from "./components/Layout";
+import SiteAside from "./components/SiteAside";
 export default {
-    components: {
-        MessageArea,
-    }
+  components: {
+    Layout,
+    SiteAside,
+  }
 }
 </script>
 
-<style>
-
+<style lang = "less">
+@import "./styles/mixin.less";
+  .app-container{
+    .self-fill();
+  }
+  .left{
+    .site-aside-container{
+      width: 250px;
+      height: 100%;
+    }
+    
+  }
 </style>
+
